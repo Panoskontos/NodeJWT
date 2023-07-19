@@ -12,7 +12,6 @@ app.use(bodyParser.json());
 const SECRET_KEY = process.env.SECRET_KEY;
 
 // User store
-// test123
 let users = {
     "test":"$2b$10$HmPBRGNW.12/aK7dOiRMS.CxIHhixA7felUEeJJC6jG5kJAj2SHse",
     "panos":"$2b$10$A0cPqJNfwyvzaKjJZUn0G.N51NN2SfIR6YynCdwOnWtqGBCv59lAu",
