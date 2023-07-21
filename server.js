@@ -69,7 +69,7 @@ app.post('/login', async (req, res) => {
 
   const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1d' });
 
-  res.status(200).send({ message: 'Authenticated successfully', token, email:"panos@panos.com", role:"admin" });
+  res.status(200).send({ message: 'Authenticated successfully', token, email:username, role:"admin" });
 });
 
 // JWT middleware
