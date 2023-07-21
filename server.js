@@ -3,9 +3,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
 
 
 const app = express();
+app.use(cors());  // Enable CORS for all routes
 app.use(bodyParser.json());
 
 // Secret key for JWT
@@ -40,7 +42,7 @@ app.post('/signup', async (req, res) => {
 // Login route
 // also send role
 app.post('/login', async (req, res) => {
-  const username = req.body.username;
+  const username = req.body.email;
   const password = req.body.password;
 
   const hashedPassword = users[username];
