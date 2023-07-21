@@ -20,18 +20,28 @@ let users = {
     "mata":"$2b$10$rYoBa/S6f9MuYnoU6Gl3ZuIpDG1bMX9fsSrEhBFRTqa9rne/GpArO"
 };  // This should be replaced with a proper database
 
+function validateEmail(email) {
+    var regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return regex.test(email);
+}
 
 // Sign up route
 app.post('/signup', async (req, res) => {
-  const username = req.body.username;
+  const username = req.body.email;
   const password = req.body.password;
-  
+
+ 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
+ 
+    if (!validateEmail(username)) {
+    console.log("good email")
+    return res.status(401).send({ message: 'Please use email format' });
+  } 
   
     users[username] = hashedPassword;
   
-    res.status(200).send({ message: 'User created successfully', hashedPassword: hashedPassword });
+    res.status(200).send({ message: 'User created successfully', hashedPassword: hashedPassword, m2:"m2" });
   } catch (err) {
     console.error(err);
     res.status(500).send({ message: 'Error creating user' });
@@ -59,7 +69,7 @@ app.post('/login', async (req, res) => {
 
   const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1d' });
 
-  res.status(200).send({ message: 'Authenticated successfully', token });
+  res.status(200).send({ message: 'Authenticated successfully', token, email:"panos@panos.com", role:"admin" });
 });
 
 // JWT middleware
